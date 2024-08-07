@@ -9,7 +9,7 @@ import UIKit
 // use this one for the upper one
 // all the things inside the cell should go here 
 class CollectionViewCell: UICollectionViewCell {
-   
+   let poster_api = "https://image.tmdb.org/t/p/w1280"
 
 //    for the first half
     
@@ -23,5 +23,54 @@ class CollectionViewCell: UICollectionViewCell {
         ratingLbl.text = String(movie.vote_average)
         
     }
+    
+    func newSetUp(with movie: MovieData) {
+        movieNameLbl.text = movie.title
+        ratingLbl.text = String(roundNumber(num: movie.vote_average))
+        fetchImage(posterPath: movie.poster_path)
+    }
+    
+    func roundNumber(num : Double) -> Double{
+        let roundedValue = (num * 10).rounded() / 10
+        return roundedValue
+    }
+    
+    
+    func fetchImage(posterPath : String) {
+            // URL of the API that returns an image
+        let api = poster_api + posterPath
+            guard let url = URL(string: api) else {
+                print("Invalid URL")
+                return
+            }
+            
+            // Create a URLSession data task
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                // Check for errors
+                if let error = error {
+                    print("Error fetching image: \(error.localizedDescription)")
+                    return
+                }
+                
+                // Check if data is received
+                guard let data = data else {
+                    print("No data received")
+                    return
+                }
+                
+                // Convert data to UIImage
+                if let image = UIImage(data: data) {
+                    // Update the UIImageView on the main thread
+                    DispatchQueue.main.async {
+                        self.movieImageView.image = image
+                    }
+                } else {
+                    print("Failed to convert data to UIImage")
+                }
+            }
+            
+            // Start the data task
+            task.resume()
+        }
     
 }

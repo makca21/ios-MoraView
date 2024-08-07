@@ -11,9 +11,12 @@ class ViewController: UIViewController {
     
     var data = [movieData(sectionType: "Action", movies: ["Avengers Endgame", "Spider-man"])]
     let section = ["action", "drama"] // delete later
+    var currentMovies : [MovieData] = []
+    var popularMovies: [MovieData] = []
     
     // URL of the API + API key
-    let apiUrl = "https://api.themoviedb.org/3/movie/now_playing?api_key=e1d120dfce09b51437ec52750a0e41a1"
+    let current_url = "https://api.themoviedb.org/3/movie/now_playing?api_key=e1d120dfce09b51437ec52750a0e41a1"
+    let popular_url = "https://api.themoviedb.org/3/trending/movie/day?api_key=e1d120dfce09b51437ec52750a0e41a1"
     
     @IBOutlet weak var collectionView: UICollectionView! // this might not be true
     @IBOutlet weak var seeMoreActionTop: UIButton!
@@ -26,10 +29,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Ensure the URL is valid
-        guard let url = URL(string: apiUrl) else {
+        guard let url_now = URL(string: current_url) else {
             print("Invalid URL")
             return
             
+        }
+        
+        guard let url_popular = URL(string: popular_url) else {
+            print("Invalid URL")
+            return
         }
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -37,21 +45,49 @@ class ViewController: UIViewController {
         tableView.delegate = self
         
         
-     
-        fetchMovies(from: url) { movies in
+            fetchMovies(from: url_now) { movies in
+                
+                if let movies = movies {
+                    print("these movies are available in cinemas")
+                    for movie in movies {
+                        let data = MovieData(id: movie.id, title: movie.title,  poster_path: movie.poster_path, vote_average: movie.vote_average)
+                        self.currentMovies.append(data)
+                        print("ID: \(movie.id), Title: \(movie.title), Vote Average: \(movie.vote_average)")
+                    }
+                    DispatchQueue.main.async {
+                               self.collectionView.reloadData()
+                           }
+                } else {
+                    print("Failed to fetch or decode movies.")
+                }
+            }
+        
+        fetchMovies(from: url_popular) { movies in
+            
             if let movies = movies {
+                print("for popular movies:")
                 for movie in movies {
+                    let data = MovieData(id: movie.id, title: movie.title,  poster_path: movie.poster_path, vote_average: movie.vote_average)
+                    self.popularMovies.append(data)
                     print("ID: \(movie.id), Title: \(movie.title), Vote Average: \(movie.vote_average)")
                 }
+                DispatchQueue.main.async {
+                           self.tableView.reloadData()
+                       }
             } else {
                 print("Failed to fetch or decode movies.")
             }
         }
+        
+
+        
+        
     }
     
-   
-       
     
+    @IBAction func detailsTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "ToVc", sender: nil)
+    }
 }
        
        
@@ -70,7 +106,7 @@ class ViewController: UIViewController {
                }
                
                do {
-                   let response = try JSONDecoder().decode(Response.self, from: data)
+                   let response = try JSONDecoder().decode(MovieResponse.self, from: data)
                    completion(response.results)
                } catch {
                    print("Error decoding JSON: \(error)")
@@ -86,7 +122,7 @@ class ViewController: UIViewController {
 // MARK: - extended methods
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count // display same amount of movies for each section
+        return self.popularMovies.count // display same amount of movies for each section
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -95,8 +131,7 @@ extension ViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
-         cell.setUp(with: movies[indexPath.row])
-         
+        cell.setUp(with: self.popularMovies[indexPath.row])
         return cell
     }
 }
@@ -105,11 +140,11 @@ extension ViewController: UITableViewDataSource {
 // added for the first portion later
 extension ViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.count
+        return self.currentMovies.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        cell.setUp(with: movies[indexPath.row])
+        cell.newSetUp(with: self.currentMovies[indexPath.row])
         return cell
     }
     

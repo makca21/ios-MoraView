@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D2942A9D2C63E0A10025A819 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2942A9C2C63E0A10025A819 /* Home.storyboard */; };
+		D2942A9F2C63E0C60025A819 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2942A9E2C63E0C60025A819 /* HomeViewController.swift */; };
+		D2942AA12C63E0EA0025A819 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2942AA02C63E0EA0025A819 /* HomePresenter.swift */; };
+		D2942AA32C63E2120025A819 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2942AA22C63E2120025A819 /* HomeInteractor.swift */; };
+		D2942AA52C63E2200025A819 /* HomeContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2942AA42C63E2200025A819 /* HomeContract.swift */; };
+		D2942AA72C63E2300025A819 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2942AA62C63E2300025A819 /* HomeRouter.swift */; };
+		D2942AAA2C63E4ED0025A819 /* HomeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2942AA92C63E4ED0025A819 /* HomeAdapter.swift */; };
+		D2942AAE2C63E7350025A819 /*  HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2942AAD2C63E7350025A819 /*  HomeCell.swift */; };
 		E862C22B2C53B69D00E9F04F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E862C22A2C53B69D00E9F04F /* AppDelegate.swift */; };
 		E862C22D2C53B69D00E9F04F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E862C22C2C53B69D00E9F04F /* SceneDelegate.swift */; };
 		E862C22F2C53B69D00E9F04F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E862C22E2C53B69D00E9F04F /* ViewController.swift */; };
@@ -19,6 +27,7 @@
 		E864AC252C5A737700168B6F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E864AC242C5A737700168B6F /* CollectionViewCell.swift */; };
 		E864AC272C5A743500168B6F /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E864AC262C5A743500168B6F /* TableViewCell.swift */; };
 		E864AC292C5B6D1500168B6F /* data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E864AC282C5B6D1500168B6F /* data.swift */; };
+		E872A55A2C6A2B9C008BDF62 /* DetailsVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = E872A5592C6A2B9C008BDF62 /* DetailsVc.swift */; };
 		E88302CC2C621AEF00BCED21 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88302CB2C621AEF00BCED21 /* Movie.swift */; };
 		E88302CE2C63820800BCED21 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88302CD2C63820800BCED21 /* MovieService.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +50,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D2942A9C2C63E0A10025A819 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		D2942A9E2C63E0C60025A819 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D2942AA02C63E0EA0025A819 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		D2942AA22C63E2120025A819 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		D2942AA42C63E2200025A819 /* HomeContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContract.swift; sourceTree = "<group>"; };
+		D2942AA62C63E2300025A819 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		D2942AA92C63E4ED0025A819 /* HomeAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAdapter.swift; sourceTree = "<group>"; };
+		D2942AAD2C63E7350025A819 /*  HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " HomeCell.swift"; sourceTree = "<group>"; };
 		E862C2272C53B69D00E9F04F /* MoraView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoraView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E862C22A2C53B69D00E9F04F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E862C22C2C53B69D00E9F04F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +74,7 @@
 		E864AC242C5A737700168B6F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		E864AC262C5A743500168B6F /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		E864AC282C5B6D1500168B6F /* data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = data.swift; sourceTree = "<group>"; };
+		E872A5592C6A2B9C008BDF62 /* DetailsVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVc.swift; sourceTree = "<group>"; };
 		E88302CB2C621AEF00BCED21 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		E88302CD2C63820800BCED21 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,9 +104,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D2942A9B2C63E0880025A819 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D2942AAC2C63E7250025A819 /* Views */,
+				D2942AAB2C63E5590025A819 /* Entities */,
+				D2942AA82C63E4D80025A819 /* Adapter */,
+				D2942A9C2C63E0A10025A819 /* Home.storyboard */,
+				D2942A9E2C63E0C60025A819 /* HomeViewController.swift */,
+				D2942AA02C63E0EA0025A819 /* HomePresenter.swift */,
+				D2942AA22C63E2120025A819 /* HomeInteractor.swift */,
+				D2942AA42C63E2200025A819 /* HomeContract.swift */,
+				D2942AA62C63E2300025A819 /* HomeRouter.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D2942AA82C63E4D80025A819 /* Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				D2942AA92C63E4ED0025A819 /* HomeAdapter.swift */,
+			);
+			path = Adapter;
+			sourceTree = "<group>";
+		};
+		D2942AAB2C63E5590025A819 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				E88302CB2C621AEF00BCED21 /* Movie.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		D2942AAC2C63E7250025A819 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D2942AAD2C63E7350025A819 /*  HomeCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E862C21E2C53B69D00E9F04F = {
 			isa = PBXGroup;
 			children = (
+				D2942A9B2C63E0880025A819 /* Home */,
 				E862C2292C53B69D00E9F04F /* MoraView */,
 				E862C2402C53B69F00E9F04F /* MoraViewTests */,
 				E862C24A2C53B69F00E9F04F /* MoraViewUITests */,
@@ -119,8 +178,8 @@
 				E862C2352C53B69F00E9F04F /* LaunchScreen.storyboard */,
 				E862C2382C53B69F00E9F04F /* Info.plist */,
 				E864AC282C5B6D1500168B6F /* data.swift */,
-				E88302CB2C621AEF00BCED21 /* Movie.swift */,
 				E88302CD2C63820800BCED21 /* MovieService.swift */,
+				E872A5592C6A2B9C008BDF62 /* DetailsVc.swift */,
 			);
 			path = MoraView;
 			sourceTree = "<group>";
@@ -249,6 +308,7 @@
 				E862C2342C53B69F00E9F04F /* Assets.xcassets in Resources */,
 				E862C2372C53B69F00E9F04F /* Base in Resources */,
 				E862C2322C53B69D00E9F04F /* Base in Resources */,
+				D2942A9D2C63E0A10025A819 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,11 +333,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2942AA52C63E2200025A819 /* HomeContract.swift in Sources */,
 				E88302CC2C621AEF00BCED21 /* Movie.swift in Sources */,
+				D2942AA32C63E2120025A819 /* HomeInteractor.swift in Sources */,
+				D2942AAE2C63E7350025A819 /*  HomeCell.swift in Sources */,
 				E864AC272C5A743500168B6F /* TableViewCell.swift in Sources */,
+				D2942AAA2C63E4ED0025A819 /* HomeAdapter.swift in Sources */,
 				E864AC292C5B6D1500168B6F /* data.swift in Sources */,
+				D2942AA12C63E0EA0025A819 /* HomePresenter.swift in Sources */,
+				D2942AA72C63E2300025A819 /* HomeRouter.swift in Sources */,
+				E872A55A2C6A2B9C008BDF62 /* DetailsVc.swift in Sources */,
 				E862C22F2C53B69D00E9F04F /* ViewController.swift in Sources */,
 				E862C22B2C53B69D00E9F04F /* AppDelegate.swift in Sources */,
+				D2942A9F2C63E0C60025A819 /* HomeViewController.swift in Sources */,
 				E864AC252C5A737700168B6F /* CollectionViewCell.swift in Sources */,
 				E88302CE2C63820800BCED21 /* MovieService.swift in Sources */,
 				E862C22D2C53B69D00E9F04F /* SceneDelegate.swift in Sources */,
