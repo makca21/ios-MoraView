@@ -60,7 +60,7 @@ class TableViewCell : UITableViewCell{
     func setUp(with movie: Movie) {
         tableImg.image = movie.image
         tableTitle.text = movie.title
-        tableRating.text = String(movie.rating)
+        tableRating.text = String(movie.vote_average)
         
     }
 }

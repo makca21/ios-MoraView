@@ -9,24 +9,75 @@ import UIKit
 
 class ViewController: UIViewController {
     
-var data = [movieData(sectionType: "Action", movies: ["Avengers Endgame", "Spider-man"])]
-let section = ["action", "drama"] // delete later
+    var data = [movieData(sectionType: "Action", movies: ["Avengers Endgame", "Spider-man"])]
+    let section = ["action", "drama"] // delete later
+    
+    // URL of the API + API key
+    let apiUrl = "https://api.themoviedb.org/3/movie/now_playing?api_key=e1d120dfce09b51437ec52750a0e41a1"
     
     @IBOutlet weak var collectionView: UICollectionView! // this might not be true
     @IBOutlet weak var seeMoreActionTop: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Ensure the URL is valid
+        guard let url = URL(string: apiUrl) else {
+            print("Invalid URL")
+            return
+            
+        }
         collectionView.dataSource = self
         collectionView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
-
-     }
-
+        
+        
+     
+        fetchMovies(from: url) { movies in
+            if let movies = movies {
+                for movie in movies {
+                    print("ID: \(movie.id), Title: \(movie.title), Vote Average: \(movie.vote_average)")
+                }
+            } else {
+                print("Failed to fetch or decode movies.")
+            }
+        }
+    }
+    
+   
+       
+    
+}
+       
+       
+       func fetchMovies(from url: URL, completion: @escaping ([MovieData]?) -> Void) {
+           let task = URLSession.shared.dataTask(with: url) { data, response, error in
+               if let error = error {
+                   print("Error fetching data: \(error)")
+                   completion(nil)
+                   return
+               }
+               
+               guard let data = data else {
+                   print("No data received")
+                   completion(nil)
+                   return
+               }
+               
+               do {
+                   let response = try JSONDecoder().decode(Response.self, from: data)
+                   completion(response.results)
+               } catch {
+                   print("Error decoding JSON: \(error)")
+                   completion(nil)
+               }
+           }
+           task.resume()
 
 }
 
@@ -49,37 +100,7 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
 }
-/*extension ViewController : UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 178 // i do the exact height but dont know if its neccessary or not
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return data.count // this is for different stacks of movie types, it should not be used for the first part
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return data[section].sectionType
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 // creates 1 row for each function
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        cell.collectionView.tag = indexPath.section
-        return cell
-    }
 
-//    using the identifier of table cell
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = .lightGray
-    }
-    
- 
-} */
 
 // added for the first portion later
 extension ViewController : UICollectionViewDataSource {

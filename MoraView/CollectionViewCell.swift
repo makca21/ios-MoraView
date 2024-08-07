@@ -20,7 +20,7 @@ class CollectionViewCell: UICollectionViewCell {
     func setUp(with movie: Movie) {
         movieImageView.image = movie.image
         movieNameLbl.text = movie.title
-        ratingLbl.text = String(movie.rating)
+        ratingLbl.text = String(movie.vote_average)
         
     }
     
