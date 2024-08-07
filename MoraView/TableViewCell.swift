@@ -6,7 +6,7 @@
 // use this for the one on below
 
 import UIKit
-
+/*
 class TableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
  
     
@@ -34,18 +34,33 @@ class TableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
 }
 
 
-extension TableViewCell { // bir kısım reduce edildi recheck et  min: 14.21
+ extension TableViewCell { // bir kısım reduce edildi recheck et  min: 14.21
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data[collectionView.tag].movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Col", for: indexPath) as! CollectionViewCell
                // table views
                cell.images.image = UIImage(named: data[collectionView.tag].movies[indexPath.row])
                return cell
      }
     
     
+}*/
+
+class TableViewCell : UITableViewCell{
+    
+    @IBOutlet weak var tableImg: UIImageView!
+    @IBOutlet weak var tableTitle: UILabel!
+    @IBOutlet weak var tableRating: UILabel!
+    
+    
+    func setUp(with movie: Movie) {
+        tableImg.image = movie.image
+        tableTitle.text = movie.title
+        tableRating.text = String(movie.rating)
+        
+    }
 }

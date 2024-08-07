@@ -10,17 +10,22 @@ import UIKit
 class ViewController: UIViewController {
     
 var data = [movieData(sectionType: "Action", movies: ["Avengers Endgame", "Spider-man"])]
-
+let section = ["action", "drama"] // delete later
+    
     @IBOutlet weak var collectionView: UICollectionView! // this might not be true
-    @IBOutlet weak var seeMoreAction: UIButton!
+    @IBOutlet weak var seeMoreActionTop: UIButton!
+    
     @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         collectionView.dataSource = self
         collectionView.delegate = self
-       // collectionView.collectionViewLayout = UICollectionViewLayout()
-    }
+        tableView.dataSource = self
+        tableView.delegate = self
+
+     }
 
 
 }
@@ -28,7 +33,23 @@ var data = [movieData(sectionType: "Action", movies: ["Avengers Endgame", "Spide
 
 // new extension for the extra functionalities
 // MARK: - extended methods
-extension ViewController : UITableViewDelegate, UITableViewDataSource {
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count // display same amount of movies for each section
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+        
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
+         cell.setUp(with: movies[indexPath.row])
+         
+        return cell
+    }
+}
+/*extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 178 // i do the exact height but dont know if its neccessary or not
     }
@@ -57,8 +78,8 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         view.tintColor = .lightGray
     }
     
-    
-}
+ 
+} */
 
 // added for the first portion later
 extension ViewController : UICollectionViewDataSource {
@@ -71,11 +92,24 @@ extension ViewController : UICollectionViewDataSource {
         return cell
     }
     
+    
 }
 
-extension ViewController : UICollectionViewDelegateFlowLayout {
+extension ViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 211, height: 282)
 //        adding this part solved everything, ask this part
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(movies[indexPath.row].title)
+    }
+}
+
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return  165// Setting the desired height here
+    }
+    
 }

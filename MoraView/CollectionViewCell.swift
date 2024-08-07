@@ -9,11 +9,9 @@ import UIKit
 // use this one for the upper one
 // all the things inside the cell should go here 
 class CollectionViewCell: UICollectionViewCell {
-     
-    @IBOutlet var images: UIImageView!
-    
-    
-//    to see images
+   
+
+//    for the first half
     
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieNameLbl: UILabel!

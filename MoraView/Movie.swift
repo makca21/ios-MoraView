@@ -11,6 +11,7 @@ struct Movie {
     let title: String
     let image: UIImage
     let rating: Double
+    
 }
 //  #imageLiteral(resourceName: "Avengers")
 let movies: [Movie] = [
