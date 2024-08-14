@@ -8,23 +8,31 @@
 import UIKit
 // use this one for the upper one
 // all the things inside the cell should go here 
+
+protocol MyCollectionViewCellDelegate: AnyObject {
+    func didTapButton(in cell: CollectionViewCell)
+}
+
 class CollectionViewCell: UICollectionViewCell {
    let poster_api = "https://image.tmdb.org/t/p/w1280"
+   weak var delegate: MyCollectionViewCellDelegate?
 
-//    for the first half
     
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieNameLbl: UILabel!
     @IBOutlet weak var ratingLbl: UILabel!
     
-    func setUp(with movie: Movie) {
-        movieImageView.image = movie.image
-        movieNameLbl.text = movie.title
-        ratingLbl.text = String(movie.vote_average)
-        
-    }
     
-    func newSetUp(with movie: MovieData) {
+    
+   
+
+    @IBAction func buttonTapped(_ sender: UIButton) {
+            delegate?.didTapButton(in: self)
+            print("Details button from now playing is tapped.")
+        }
+
+    
+    func setUp(with movie: MovieData) {
         movieNameLbl.text = movie.title
         ratingLbl.text = String(roundNumber(num: movie.vote_average))
         fetchImage(posterPath: movie.poster_path)

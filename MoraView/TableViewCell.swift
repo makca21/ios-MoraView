@@ -7,13 +7,25 @@
 
 import UIKit
 
+protocol MyTableViewCellDelegate: AnyObject {
+    func didTapButton(in cell: TableViewCell)
+}
+
 class TableViewCell : UITableViewCell{
     
     @IBOutlet weak var tableImg: UIImageView!
     @IBOutlet weak var tableTitle: UILabel!
     @IBOutlet weak var tableRating: UILabel!
     let poster_api = "https://image.tmdb.org/t/p/w1280"
+    weak var delegate : MyTableViewCellDelegate?
 
+    
+    
+    @IBAction func buttonTapped(_ sender: Any) {
+        delegate?.didTapButton(in: self)
+        print("Details button from popular movies is tapped.")
+        
+    }
     
     func setUp(with movie: MovieData) {
          tableTitle.text = movie.title

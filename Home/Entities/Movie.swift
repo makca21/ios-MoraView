@@ -7,21 +7,16 @@
 
 import UIKit
 
-struct Movie{
-    let title: String
-    let image: UIImage
-    let vote_average: Double
-    let id: Int
-}
 
 struct MovieData :Codable{
     let id: Int
     let title: String
-   
+    let overview: String
     let poster_path : String
-    
+    let adult: Bool
+    let original_language: String
     let vote_average: Double
-   
+    let genre_ids: [Int]
     
 }
 
@@ -30,12 +25,6 @@ struct MovieResponse: Codable {
 }
 
 
-//  #imageLiteral(resourceName: "Avengers")
-let movies: [Movie] = [
-    Movie(title: "Spider-man", image:  #imageLiteral(resourceName: "Spider-man"), vote_average: 4.3, id: 0),
-    Movie(title: "Avengers Endgame", image: #imageLiteral(resourceName: "Avengers "), vote_average: 6.2, id: 1)
-    
-]
 
 
 /* call response for reference

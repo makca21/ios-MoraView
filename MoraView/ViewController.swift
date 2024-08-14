@@ -7,23 +7,19 @@
 
 import UIKit
 
+
+
 class ViewController: UIViewController {
     
-    var data = [movieData(sectionType: "Action", movies: ["Avengers Endgame", "Spider-man"])]
-    let section = ["action", "drama"] // delete later
     var currentMovies : [MovieData] = []
     var popularMovies: [MovieData] = []
-    
-    // URL of the API + API key
+    // URLs of the necessary APIs + API key
     let current_url = "https://api.themoviedb.org/3/movie/now_playing?api_key=e1d120dfce09b51437ec52750a0e41a1"
     let popular_url = "https://api.themoviedb.org/3/trending/movie/day?api_key=e1d120dfce09b51437ec52750a0e41a1"
     
     @IBOutlet weak var collectionView: UICollectionView! // this might not be true
     @IBOutlet weak var seeMoreActionTop: UIButton!
-    
     @IBOutlet weak var tableView: UITableView!
-    
-    
     
     
     override func viewDidLoad() {
@@ -48,9 +44,9 @@ class ViewController: UIViewController {
             fetchMovies(from: url_now) { movies in
                 
                 if let movies = movies {
-                    print("these movies are available in cinemas")
+                    print("these movies are available in cinemas:")
                     for movie in movies {
-                        let data = MovieData(id: movie.id, title: movie.title,  poster_path: movie.poster_path, vote_average: movie.vote_average)
+                        let data = MovieData(id: movie.id, title: movie.title, overview: movie.overview, poster_path: movie.poster_path, adult: movie.adult, original_language: movie.original_language, vote_average: movie.vote_average, genre_ids: movie.genre_ids)
                         self.currentMovies.append(data)
                         print("ID: \(movie.id), Title: \(movie.title), Vote Average: \(movie.vote_average)")
                     }
@@ -65,9 +61,9 @@ class ViewController: UIViewController {
         fetchMovies(from: url_popular) { movies in
             
             if let movies = movies {
-                print("for popular movies:")
+                print("these movies are popular:")
                 for movie in movies {
-                    let data = MovieData(id: movie.id, title: movie.title,  poster_path: movie.poster_path, vote_average: movie.vote_average)
+                    let data = MovieData(id: movie.id, title: movie.title, overview: movie.overview, poster_path: movie.poster_path, adult: movie.adult, original_language: movie.original_language, vote_average: movie.vote_average, genre_ids: movie.genre_ids)
                     self.popularMovies.append(data)
                     print("ID: \(movie.id), Title: \(movie.title), Vote Average: \(movie.vote_average)")
                 }
@@ -79,15 +75,9 @@ class ViewController: UIViewController {
             }
         }
         
-
-        
-        
-    }
+    } // the end of view didload
     
     
-    @IBAction func detailsTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "ToVc", sender: nil)
-    }
 }
        
        
@@ -116,13 +106,15 @@ class ViewController: UIViewController {
            task.resume()
 
 }
+    
+        
 
 
-// new extension for the extra functionalities
+//  extension for the view functionalities
 // MARK: - extended methods
-extension ViewController: UITableViewDataSource {
+extension ViewController: UITableViewDataSource, UITableViewDelegate, MyTableViewCellDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.popularMovies.count // display same amount of movies for each section
+        return self.popularMovies.count // display all  of movies for the section (no sections all at once)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -132,40 +124,82 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
         cell.setUp(with: self.popularMovies[indexPath.row])
+        cell.delegate = self
+
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return  165 // Setting the desired height here
+    }
+    
+    func didTapButton(in cell: TableViewCell) {
+           // Find the index path of the tapped cell
+           if let indexPath = tableView.indexPath(for: cell) {
+               let selectedData = self.popularMovies[indexPath.row]
+               performSegue(withIdentifier: "ToDetailsVc2", sender: selectedData)
+           }
+       }
+    
+       
 }
 
-
-// added for the first portion later
-extension ViewController : UICollectionViewDataSource {
+extension ViewController : UICollectionViewDataSource,  UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, MyCollectionViewCellDelegate{
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.currentMovies.count
     }
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        cell.newSetUp(with: self.currentMovies[indexPath.row])
+        cell.setUp(with: self.currentMovies[indexPath.row])
+        cell.delegate = self // setting the delegate
         return cell
     }
     
     
-}
-
-extension ViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 211, height: 282)
 //        adding this part solved everything, ask this part
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(movies[indexPath.row].title)
-    }
+    
+    func didTapButton(in cell: CollectionViewCell) {
+           // Find the index path of the tapped cell
+           if let indexPath = collectionView.indexPath(for: cell) {
+               let selectedData = self.currentMovies[indexPath.row]
+               performSegue(withIdentifier: "ToDetailsVc1", sender: selectedData)
+           }
+       }
+
+       
+    
+    
+    
 }
 
-
-extension ViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return  165// Setting the desired height here
+extension ViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToDetailsVc1" {
+            if let destinationVC = segue.destination as? DetailsVc,
+               let dataToPass = sender as? MovieData {
+                // Configure destinationVC for the first button
+                destinationVC.received = dataToPass
+//                destinationVC.source = "Button1"
+            }
+        } else if segue.identifier == "ToDetailsVc2" {
+            if let destinationVC = segue.destination as? DetailsVc,
+               let dataToPass = sender as? MovieData {
+                // Configure destinationVC for the second button
+                destinationVC.received = dataToPass
+//                destinationVC.source = "Button2"
+            }
+        }
     }
     
 }
+ 
+ 
+
+

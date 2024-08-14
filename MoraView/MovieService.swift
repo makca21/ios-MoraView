@@ -8,8 +8,8 @@
 import Foundation
 
 protocol MovieService {
-    func fetchMovies(from endpoint: MovieListEndpoint) async throws -> [Movie]
-    func fetchMovie(id: Int) async throws -> Movie
+    func fetchMovies(from endpoint: MovieListEndpoint) async throws -> [MovieData]
+    func fetchMovie(id: Int) async throws -> MovieData
 }
 
 enum MovieListEndpoint: String, CaseIterable, Identifiable {
